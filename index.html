@@ -1,0 +1,1047 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from www.simonv.fr:443/TypesConvert/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Aug 2024 03:20:45 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Types converter</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="css/types.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        
+        <h3 class="text-muted">Types converter</h3>
+        
+        <nav>
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="index0f6d.html?integers" data-types="integers">Integers</a></li>
+              <li role="presentation"><a href="index546a.html?float" data-types="float">Floating Point</a></li>
+              <li role="presentation"><a href="index2593.html?characters" data-types="characters">Characters</a></li>
+              <li role="presentation"><a href="indexf5ad.html?crc" data-types="crc">CRC</a></li>
+              <li role="presentation"><a href="indexfc6a.html?egnos" data-types="egnos">EGNOS</a></li>
+            </ul>
+        </nav>
+      </div>
+
+      <div class="row types" id="types-integers">
+
+        <div class="jumbotron" id="integerInput">
+          <label for="intInputStr">Input:</label>
+           <br />
+          <input type="text" class="inputStr" id="intInputStr" placeholder="Integer, Binary, Hexadecimal, 3.434, 1.2245E+5, 0b0101, 0xF8, ..." /> <a href="#clear" class="clear-input" data-target="intInputStr"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+          <p class="selector">
+              <label><span><input type="radio" name="int-selector" id="intSelector-auto" checked="checked" /> Auto</span></label>
+              <label><span><input type="radio" name="int-selector" id="intSelector-dec" /> Decimal</span></label>
+              <label><span><input type="radio" name="int-selector" id="intSelector-hexa" /> Hexadecimal</span></label>
+              <label><span><input type="radio" name="int-selector" id="intSelector-bin" /> Binary</span></label>
+              <br />
+              <label class="option"><span><input type="checkbox" id="int-little-endian" /> Hexadecimal is little-endian (right-to-left)</span></label>
+          </p>
+          <div class="error alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              <span class="text"></span>
+          </div>
+        
+          <div class="panel panel-warning" id="format-help">
+              <a href="#format-help" class="alert-link" id="toggle-help">
+                  <div class="panel-heading alert-warning">
+                      <h3 class="panel-title">
+                          <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span> Format help
+                      </h3>
+                  </div>
+              </a>
+          
+              <div class="panel-body">
+                  <p><b>Independently of the input format, conversion is limited to 64 bits.</b></p>
+              
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Decimal</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[+-][1-9][0-9]*[u][l[l]]</dd>
+                      
+                          <dt>Scientific notation:</dt>
+                          <dd>[+-][0-9]+[.,]?[0-9]*[eE][+-][0-9]+</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              1687<br />789u<br />-1.797e3<br />66789933ul
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Hexadecimal</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[0x][0-9A-F]+[u][l[l]]</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              0x14AB<br />0X5533ul<br />54EF
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Binary</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[0b][01]+[u][l[l]]</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              0b011101<br />100100<br />0101000111
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          </div>
+        
+          <div id="dec-display">
+              <b>Decimal value:</b>
+              <span id="dec-value">0e+0</span>
+              <br/>
+              <small id="inter-unsigned">(interpretated as unsigned integer)</small>
+          </div>
+        </div>
+          
+        <!-- 8 bits numbers -->
+        <div class="col-lg-12">
+          <h4>8-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT8 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT8 <small>(signed 8-bits integer, signed char)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint8-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint8-hex" value="0x00" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint8-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint8-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT8 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed 8-bits integer is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT8 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT8 <small>(unsigned 8-bits integer, unsigned char)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint8-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint8-hex" value="0x00" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint8-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint8-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT8 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- 16 bits numbers -->
+        <div class="col-lg-12">
+          <h4>16-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT16 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT16 <small>(signed 16-bits integer, signed short)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint16-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint16-hex" value="0x0000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint16-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint16-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT16 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed 16-bits integer is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT16 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT16 <small>(unsigned 16-bits integer, unsigned short)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint16-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint16-hex" value="0x0000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint16-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint16-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT16 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- 24 bits numbers --/>
+        <div class="col-lg-12">
+          <h4>24-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT24 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT24 <small>(signed 24-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint24-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint24-hex" value="0x000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint24-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint24-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT24 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed 24-bits integer is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT24 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT24 <small>(unsigned 24-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint24-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint24-hex" value="0x000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint24-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint24-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT24 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- 32 bits numbers -->
+        <div class="col-lg-12">
+          <h4>32-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT32 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT32 <small>(signed 32-bits integer, signed int, long (on 32 bits systems))</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint32-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint32-hex" value="0x00000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint32-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint32-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT32 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed 32-bits integer is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT32 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT32 <small>(unsigned 32-bits integer, unsigned int, unsigned long (on 32 bits systems))</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint32-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint32-hex" value="0x00000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint32-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint32-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT32 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        
+        
+        <!-- 40 bits numbers --/>
+        <div class="col-lg-12">
+          <h4>40-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT40 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT40 <small>(signed 40-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint40-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint40-hex" value="0x0000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint40-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint40-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT40 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed integers is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT40 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT40 <small>(unsigned 40-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint40-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint40-hex" value="0x0000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint40-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint40-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT40 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+        
+        
+        <!-- 48 bits numbers --/>
+        <div class="col-lg-12">
+          <h4>48-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT48 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT48 <small>(signed 48-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint48-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint48-hex" value="0x000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint48-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint48-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT48 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed integers is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT48 --/>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT48 <small>(unsigned 48-bits integer, non standard)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint48-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint48-hex" value="0x000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint48-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint48-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT48 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+        
+        
+        <!-- 64 bits numbers -->
+        <div class="col-lg-12">
+          <h4>64-bits types</h4>
+          <div class="row">
+            
+            <!-- SINT64 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">SINT64 <small>(signed 64-bits integer, signed long long)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint64-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="sint64-hex" value="0x0000000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="sint64-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="63">0</span><span class="binaryBit bit" data-bit="62">0</span><span class="binaryBit bit" data-bit="61">0</span><span class="binaryBit bit" data-bit="60">0</span><span class="binaryBit bit" data-bit="59">0</span><span class="binaryBit bit" data-bit="58">0</span><span class="binaryBit bit" data-bit="57">0</span><span class="binaryBit bit" data-bit="56">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="55">0</span><span class="binaryBit bit" data-bit="54">0</span><span class="binaryBit bit" data-bit="53">0</span><span class="binaryBit bit" data-bit="52">0</span><span class="binaryBit bit" data-bit="51">0</span><span class="binaryBit bit" data-bit="50">0</span><span class="binaryBit bit" data-bit="49">0</span><span class="binaryBit bit" data-bit="48">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="sint64-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in SINT64 type of the input value results in overflow. The displayed value is the result of the overflow.<br />
+                            Note that overflow of signed integers is undefined and therefore the result given here is for information only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- UINT64 -->
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">UINT64 <small>(unsigned 64-bits integer, unsigned long long)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint64-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-6">
+                                      <input type="text" id="uint64-hex" value="0x0000000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="uint64-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="63">0</span><span class="binaryBit bit" data-bit="62">0</span><span class="binaryBit bit" data-bit="61">0</span><span class="binaryBit bit" data-bit="60">0</span><span class="binaryBit bit" data-bit="59">0</span><span class="binaryBit bit" data-bit="58">0</span><span class="binaryBit bit" data-bit="57">0</span><span class="binaryBit bit" data-bit="56">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="55">0</span><span class="binaryBit bit" data-bit="54">0</span><span class="binaryBit bit" data-bit="53">0</span><span class="binaryBit bit" data-bit="52">0</span><span class="binaryBit bit" data-bit="51">0</span><span class="binaryBit bit" data-bit="50">0</span><span class="binaryBit bit" data-bit="49">0</span><span class="binaryBit bit" data-bit="48">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="uint64-overflow" class="alert alert-warning overflow" role="alert">
+                            Conversion in UINT64 type of the input value results in overflow. The displayed value is the result of the overflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+      <div class="row types" id="types-characters">
+          
+        <div class="jumbotron" id="characterInput">
+          <label for="charInputStr">Input:</label>
+           <br />
+          <input type="text" class="inputStr" id="charInputStr" placeholder="Hexadecimal, ASCII String, 0xF8, A3E423, The brown fox..." /> <a href="#clear" class="clear-input" data-target="charInputStr"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+          <p class="selector">
+              <label><span><input type="radio" name="char-selector" id="charSelector-auto" checked="checked" /> Auto</span></label>
+              <label><span><input type="radio" name="char-selector" id="charSelector-hexa" /> Hexadecimal</span></label>
+              <label><span><input type="radio" name="char-selector" id="charSelector-string" /> ASCII String</span></label>
+          </p>
+          <div class="error alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              <span class="text"></span>
+          </div>
+        
+          <div class="panel panel-warning" id="format-help">
+              <a href="#format-help" class="alert-link" id="toggle-help">
+                  <div class="panel-heading alert-warning">
+                      <h3 class="panel-title">
+                          <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span> Format help
+                      </h3>
+                  </div>
+              </a>
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Hexadecimal</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[0x][0-9A-F]+[u][l[l]]</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              0x14AB<br />0X5533ul<br />54EF
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">String</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>ASCII String:</dt>
+                          <dd>Only ASCII characters are accepted. (<a href="http://www.asciitable.com/">ASCII table</a>)</dd>
+                      </dl>
+                    </div>
+                  </div>
+              </div>
+          
+          </div>
+        </div>
+        
+        
+        <!-- Characters / String -->
+        <div class="col-lg-12">
+          <h4>Character Strings</h4>
+          <div class="row">
+            
+            <!-- CHARACTER -->
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">CHARACTER <small>(unterminated string, ASCII ISO/IEC 646 1983)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="char-wrapper">&quot;<span id="char-value"></span>&quot;</div>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <input type="text" id="char-hex" value="0x00" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="char-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div id="char-illegal" class="alert alert-warning overflow" role="alert">
+                            Invalid characters have been found. They have been replaced by "&Oslash;".
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+      </div>
+    </div>
+      
+    <div class="row types" id="types-float">
+          
+        <div class="jumbotron" id="floatInput">
+          <label for="floatInputStr">Input:</label>
+           <br />
+          <input type="text" class="inputStr" id="floatInputStr" placeholder="Decimal, Binary, Hexadecimal, 3.434, 1.2245E+5, 0b0101, 0xF845E323, ..." /> <a href="#clear" class="clear-input" data-target="floatInputStr"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></a>
+          <p class="selector">
+              <label><span><input type="radio" name="float-selector" id="floatSelector-auto" checked="checked" /> Auto</span></label>
+              <label><span><input type="radio" name="float-selector" id="floatSelector-dec" /> Decimal</span></label>
+              <label><span><input type="radio" name="float-selector" id="floatSelector-hexa" /> Hexadecimal</span></label>
+              <label><span><input type="radio" name="float-selector" id="floatSelector-bin" /> Binary</span></label>
+              <br />
+              <label class="option"><span><input type="checkbox" id="float-little-endian" /> Hexadecimal is little-endian (right-to-left)</span></label>
+          </p>
+          <div class="error alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              <span class="text"></span>
+          </div>
+        
+          <div class="panel panel-warning" id="format-help">
+              <a href="#format-help" class="alert-link" id="toggle-help">
+                  <div class="panel-heading alert-warning">
+                      <h3 class="panel-title">
+                          <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                          <span class="sr-only">Error:</span> Format help
+                      </h3>
+                  </div>
+              </a>
+      
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Decimal</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[+-][1-9][0-9]*</dd>
+                      
+                          <dt>Scientific notation:</dt>
+                          <dd>[+-][0-9]+[.,]?[0-9]*[eE][+-][0-9]+</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              1687<br />789<br />-1.797e3<br />66789933
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Hexadecimal</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[0x][0-9A-F]+</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              0x14AB<br />0X5533<br />54EF
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          
+              <div class="panel-body">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h3 class="panel-title">Binary</h3>
+                    </div>
+                    <div class="panel-body">
+                      <dl>
+                          <dt>C literals:</dt>
+                          <dd>[0b][01]+</dd>
+                      </dl>
+                      <div class="bs-example">
+                          <div class="well well-lg">
+                              0b011101<br />100100<br />0101000111
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          
+          </div>
+          
+        </div>
+        
+        
+        <!-- Floating point -->
+        <div class="col-lg-12">
+          <h4>Floating point numbers</h4>
+          <div class="row">
+            
+            <!-- FLOAT32 -->
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">FLOAT32 <small>(single precision float)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float32-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float32-hex" value="0x00000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="float32-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FLOAT64 -->
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">FLOAT64 <small>(double precision float)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float64-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float64-hex" value="0x0000000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="float64-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="63">0</span><span class="binaryBit bit" data-bit="62">0</span><span class="binaryBit bit" data-bit="61">0</span><span class="binaryBit bit" data-bit="60">0</span><span class="binaryBit bit" data-bit="59">0</span><span class="binaryBit bit" data-bit="58">0</span><span class="binaryBit bit" data-bit="57">0</span><span class="binaryBit bit" data-bit="56">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="55">0</span><span class="binaryBit bit" data-bit="54">0</span><span class="binaryBit bit" data-bit="53">0</span><span class="binaryBit bit" data-bit="52">0</span><span class="binaryBit bit" data-bit="51">0</span><span class="binaryBit bit" data-bit="50">0</span><span class="binaryBit bit" data-bit="49">0</span><span class="binaryBit bit" data-bit="48">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FLOAT128 -->
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">FLOAT128 <small>(quadruple precision float)</small></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float128-value" value="0" readonly />
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <input type="text" id="float128-hex" value="0x00000000000000000000000000000000" readonly />
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div id="float128-bin-div" class="binary"><div class="bin-wrapper"><div class="bitsgroup"><span class="binaryBit bit" data-bit="127">0</span><span class="binaryBit bit" data-bit="126">0</span><span class="binaryBit bit" data-bit="125">0</span><span class="binaryBit bit" data-bit="124">0</span><span class="binaryBit bit" data-bit="123">0</span><span class="binaryBit bit" data-bit="122">0</span><span class="binaryBit bit" data-bit="121">0</span><span class="binaryBit bit" data-bit="120">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="119">0</span><span class="binaryBit bit" data-bit="118">0</span><span class="binaryBit bit" data-bit="117">0</span><span class="binaryBit bit" data-bit="116">0</span><span class="binaryBit bit" data-bit="115">0</span><span class="binaryBit bit" data-bit="114">0</span><span class="binaryBit bit" data-bit="113">0</span><span class="binaryBit bit" data-bit="112">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="111">0</span><span class="binaryBit bit" data-bit="110">0</span><span class="binaryBit bit" data-bit="109">0</span><span class="binaryBit bit" data-bit="108">0</span><span class="binaryBit bit" data-bit="107">0</span><span class="binaryBit bit" data-bit="106">0</span><span class="binaryBit bit" data-bit="105">0</span><span class="binaryBit bit" data-bit="104">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="103">0</span><span class="binaryBit bit" data-bit="102">0</span><span class="binaryBit bit" data-bit="101">0</span><span class="binaryBit bit" data-bit="100">0</span><span class="binaryBit bit" data-bit="99">0</span><span class="binaryBit bit" data-bit="98">0</span><span class="binaryBit bit" data-bit="97">0</span><span class="binaryBit bit" data-bit="96">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="95">0</span><span class="binaryBit bit" data-bit="94">0</span><span class="binaryBit bit" data-bit="93">0</span><span class="binaryBit bit" data-bit="92">0</span><span class="binaryBit bit" data-bit="91">0</span><span class="binaryBit bit" data-bit="90">0</span><span class="binaryBit bit" data-bit="89">0</span><span class="binaryBit bit" data-bit="88">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="87">0</span><span class="binaryBit bit" data-bit="86">0</span><span class="binaryBit bit" data-bit="85">0</span><span class="binaryBit bit" data-bit="84">0</span><span class="binaryBit bit" data-bit="83">0</span><span class="binaryBit bit" data-bit="82">0</span><span class="binaryBit bit" data-bit="81">0</span><span class="binaryBit bit" data-bit="80">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="79">0</span><span class="binaryBit bit" data-bit="78">0</span><span class="binaryBit bit" data-bit="77">0</span><span class="binaryBit bit" data-bit="76">0</span><span class="binaryBit bit" data-bit="75">0</span><span class="binaryBit bit" data-bit="74">0</span><span class="binaryBit bit" data-bit="73">0</span><span class="binaryBit bit" data-bit="72">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="71">0</span><span class="binaryBit bit" data-bit="70">0</span><span class="binaryBit bit" data-bit="69">0</span><span class="binaryBit bit" data-bit="68">0</span><span class="binaryBit bit" data-bit="67">0</span><span class="binaryBit bit" data-bit="66">0</span><span class="binaryBit bit" data-bit="65">0</span><span class="binaryBit bit" data-bit="64">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="63">0</span><span class="binaryBit bit" data-bit="62">0</span><span class="binaryBit bit" data-bit="61">0</span><span class="binaryBit bit" data-bit="60">0</span><span class="binaryBit bit" data-bit="59">0</span><span class="binaryBit bit" data-bit="58">0</span><span class="binaryBit bit" data-bit="57">0</span><span class="binaryBit bit" data-bit="56">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="55">0</span><span class="binaryBit bit" data-bit="54">0</span><span class="binaryBit bit" data-bit="53">0</span><span class="binaryBit bit" data-bit="52">0</span><span class="binaryBit bit" data-bit="51">0</span><span class="binaryBit bit" data-bit="50">0</span><span class="binaryBit bit" data-bit="49">0</span><span class="binaryBit bit" data-bit="48">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="47">0</span><span class="binaryBit bit" data-bit="46">0</span><span class="binaryBit bit" data-bit="45">0</span><span class="binaryBit bit" data-bit="44">0</span><span class="binaryBit bit" data-bit="43">0</span><span class="binaryBit bit" data-bit="42">0</span><span class="binaryBit bit" data-bit="41">0</span><span class="binaryBit bit" data-bit="40">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="39">0</span><span class="binaryBit bit" data-bit="38">0</span><span class="binaryBit bit" data-bit="37">0</span><span class="binaryBit bit" data-bit="36">0</span><span class="binaryBit bit" data-bit="35">0</span><span class="binaryBit bit" data-bit="34">0</span><span class="binaryBit bit" data-bit="33">0</span><span class="binaryBit bit" data-bit="32">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="31">0</span><span class="binaryBit bit" data-bit="30">0</span><span class="binaryBit bit" data-bit="29">0</span><span class="binaryBit bit" data-bit="28">0</span><span class="binaryBit bit" data-bit="27">0</span><span class="binaryBit bit" data-bit="26">0</span><span class="binaryBit bit" data-bit="25">0</span><span class="binaryBit bit" data-bit="24">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="23">0</span><span class="binaryBit bit" data-bit="22">0</span><span class="binaryBit bit" data-bit="21">0</span><span class="binaryBit bit" data-bit="20">0</span><span class="binaryBit bit" data-bit="19">0</span><span class="binaryBit bit" data-bit="18">0</span><span class="binaryBit bit" data-bit="17">0</span><span class="binaryBit bit" data-bit="16">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="15">0</span><span class="binaryBit bit" data-bit="14">0</span><span class="binaryBit bit" data-bit="13">0</span><span class="binaryBit bit" data-bit="12">0</span><span class="binaryBit bit" data-bit="11">0</span><span class="binaryBit bit" data-bit="10">0</span><span class="binaryBit bit" data-bit="9">0</span><span class="binaryBit bit" data-bit="8">0</span></div><div class="bitsgroup"><span class="binaryBit bit" data-bit="7">0</span><span class="binaryBit bit" data-bit="6">0</span><span class="binaryBit bit" data-bit="5">0</span><span class="binaryBit bit" data-bit="4">0</span><span class="binaryBit bit" data-bit="3">0</span><span class="binaryBit bit" data-bit="2">0</span><span class="binaryBit bit" data-bit="1">0</span><span class="binaryBit bit" data-bit="0">0</span></div></div></div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+      </div>
+    </div>
+    
+      <div class="row types" id="types-crc">
+          <div class="jumbotron selector" id="crcInput">
+              <label for="predefined-crcs">Predefined CRC:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="checkbox" id="predefined-enable" aria-label="Enable Predefined" checked />
+                </span>
+                <select class="form-control" id="predefined-crcs">
+                    <option value="-1">Predefined CRCs</option>
+                </select>
+              </div><!-- /input-group -->
+              
+              <br />
+              
+              <div class="panel panel-default" id="custom-crc">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Custom CRC</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="crc-degree" class="disabled">CRC degree:</label>
+                      <select id="crc-degree" class="form-control" disabled>
+                        <option value="0">-</option>
+                        <option value="8">8 bits</option>
+                        <option value="16">16 bits</option>
+                        <option value="24">24 bits</option>
+                        <option value="32">32 bits</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="crc-polynomial" class="disabled">Polynomial:</label>
+                      <input type="text" class="form-control" id="crc-polynomial" disabled/>
+                      <small id="crc-polynomial-str"></small>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label for="crc-initial" class="disabled">Initial value:</label>
+                        <input type="text" class="form-control" id="crc-initial" disabled/>
+                    </div>
+                    <div class="col-md-6">
+                    <label for="crc-final" class="disabled">Final XOR value:</label>
+                    <input type="text" class="form-control" id="crc-final" disabled/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label for="crc-ireflected" class="disabled">Input reflected:</label>
+                        <input type="checkbox" id="crc-ireflected" disabled/>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="crc-rreflected" class="disabled">Result reflected:</label>
+                        <input type="checkbox" id="crc-rreflected" disabled/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+
+          <div class="jumbotron" id="crcDataInput">
+              <label for="crc-data">Data (hexadecimal string):</label>
+              <br />
+              <textarea class="form-control" id="crc-data" rows="4"></textarea>
+              <br />
+              <button type="submit" class="btn btn-primary pull-right">Calculate CRC</button>
+              <br />
+              <h3>CRC:</h3>
+              <span id="crc-result"></span>
+          </div>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; Simon Vandaele</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bignumber.min.js"></script>
+    <script src="js/jquery.history.js"></script>
+    <script src="js/types3860.js?v=1"></script>
+  </body>
+
+<!-- Mirrored from www.simonv.fr:443/TypesConvert/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Aug 2024 03:20:47 GMT -->
+</html>
