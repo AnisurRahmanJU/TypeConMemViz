@@ -1,1 +1,1 @@
-# Type Converter Visualizer
+# Type Converter - Memory Visualizer
