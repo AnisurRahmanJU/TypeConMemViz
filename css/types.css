@@ -1,0 +1,185 @@
+@font-face{font-family:'u0000';src:url("../fonts/u0000.eot");src:url("fonts/u0000d41d.html?#iefix") format("embedded-opentype"),url("../fonts/u0000.woff") format("woff"),url("../fonts/u0000.ttf") format("truetype"),url("../fonts/u0000.svg#universaliaregular") format("svg");font-weight:normal;font-style:normal;}
+
+.header
+{
+    padding-bottom: 0px;
+    border: none;
+}
+
+.bs-example{
+    position:relative;
+    padding:45px 15px 15px;
+    margin:0 -15px 0px;
+    border-color:#e5e5e5 #eee #eee;
+    border-style:solid;
+    border-width:1px 0;
+    -webkit-box-shadow:inset 0 3px 6px rgba(0,0,0,.05);
+    box-shadow:inset 0 3px 6px rgba(0,0,0,.05);
+}
+
+.bs-example:after{
+    position:absolute;
+    top:15px;
+    left:15px;
+    font-size:12px;
+    font-weight:700;
+    color:#959595;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    content:"Example";
+}
+
+.inputStr
+{
+    width: 80%;
+}
+
+.selector label span {
+    text-decoration: none;
+    color: black;
+}
+
+.selector label
+{
+    text-decoration: underline;
+    color: black;
+}
+
+.selector label.disabled {
+    text-decoration: none;
+    color: gray;
+}
+
+.selector label.selected
+{
+    color: red;
+}
+
+.selector label.selected span
+{
+    color: #001;
+}
+
+.jumbotron .error
+{
+    display: none;
+}
+
+.jumbotron .panel
+{
+    text-align: left;
+}
+
+#format-help .panel-body
+{
+    display: none;
+    padding-bottom: 0;
+}
+
+.jumbotron .option
+{
+    font-size: 0.7em;
+}
+
+.overflow, .underflow
+{
+    display: none;
+    margin-top: 5px;
+}
+
+#inter-unsigned
+{
+    display: none;
+}
+
+.types .panel-body > .row .row > div
+{
+    padding: 0;
+    padding-left: 1px;
+}
+
+.types .panel-body > .row .row > div input
+{
+    width: 100%;
+    text-align: center;
+}
+
+.types input
+{
+    border: 1px solid rgb(174, 174, 174);
+    margin-top: 1px;
+}
+
+.binary
+{
+    font-family: "Courier New", Courier, monospace;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid rgb(174, 174, 174);
+    background: white;
+    color: rgb(51,51,51);
+    letter-spacing: 3px;
+    margin-top: 1px;
+}
+
+.bit
+{
+    position: relative;
+    width: 15px;
+}
+
+.bit::after
+{
+    content: attr(data-bit);
+    
+    width: 15px;
+    height: 10px;
+    display: block;
+
+    position: absolute;
+    bottom: -5px;
+    left: -1.5px;
+    
+    font-size: 9px;
+    line-height: 10px;
+    vertical-align: baseline;
+    text-align: center;
+    letter-spacing: 0px;
+}
+
+.bitsgroup
+{
+    display: inline-block;
+}
+
+.bitsgroup
+{
+    margin-left: 10px;
+}
+
+.bin-wrapper
+{
+    margin-left: -10px;
+}
+
+#char-value
+{
+    font-family:u0000;
+    font-size: 18px;
+    margin-bottom: 1px;
+    white-space: pre;
+}
+
+#char-wrapper
+{
+    text-align: center;
+    border: 1px solid rgb(174, 174, 174);
+    background: white;
+    color: rgb(51,51,51);
+    margin-top: 1px;
+}
+
+.types
+{
+    display: none;
+}
